@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="hi" data-theme="gold">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JULMI JAAT | जुल्मी जाट - The Official Imperial Portal & Swag Hub</title>
+  <link rel="icon" type="image/jpeg" href="assets/images/julmi_jaat_logo.jpg">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Floating Ambient Glows & Background Particle Canvas -->
+  <div class="ambient-glow ambient-glow-1"></div>
+  <div class="ambient-glow ambient-glow-2"></div>
+  <canvas id="particles-bg"></canvas>
+
+  <!-- ========================================================================
+       1. THE AMAZING CINEMATIC ENTRANCE SCREEN
+       ======================================================================== -->
+  <div id="entrance-curtain">
+    <canvas id="entrance-canvas" class="entrance-canvas"></canvas>
+    
+    <div class="entrance-content">
+      <div class="entrance-crest">
+        <img src="assets/images/julmi_jaat_logo.jpg" alt="Julmi Jaat Crest" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+      </div>
+
+      <div class="entrance-badge">⚡ THE IMPERIAL ARRIVAL ⚡</div>
+
+      <h1 class="entrance-title">JULMI JAAT</h1>
+
+      <div class="entrance-greeting-box">
+        <div class="entrance-typing-text">
+          <span id="entrance-typing-msg"></span><span class="cursor-blink"></span>
+        </div>
+        <p class="entrance-subtext">Hukum kijiye Julmi Bhai, the royal gateway is unlocked for you!</p>
+      </div>
+
+      <div class="entrance-actions">
+        <button id="enter-kingdom-btn" class="btn-royal">
+          👑 ENTER ROYAL PORTAL
+        </button>
+        <button id="entrance-upload-btn" class="btn-royal-outline">
+          📸 ADD MY PHOTOS NOW
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       2. TOP NAVIGATION BAR
+       ======================================================================== -->
+  <nav class="navbar">
+    <div class="container nav-wrap">
+      <a href="#" class="brand-logo">
+        <div class="brand-icon">
+          <img src="assets/images/julmi_jaat_logo.jpg" alt="Logo" style="width: 100%; height: 100%; border-radius: 10px; object-fit: cover;">
+        </div>
+        <div>
+          <span class="brand-name">JULMI JAAT</span>
+          <span class="brand-tag">Imperial Realm</span>
+        </div>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#hero-section" class="nav-link active"><span>👑</span> Home</a></li>
+        <li><a href="#gallery-section" class="nav-link"><span>📸</span> Photo Vault</a></li>
+        <li><a href="#garage-section" class="nav-link"><span>🚜</span> Royal Garage</a></li>
+        <li><a href="#shayari-section" class="nav-link"><span>📜</span> Attitude Status</a></li>
+        <li><a href="#music-section" class="nav-link"><span>🎵</span> Swag Beats</a></li>
+      </ul>
+
+      <div class="nav-tools">
+        <button id="theme-toggle-btn" class="icon-btn" title="Switch Royal Theme">
+          🎨
+        </button>
+        <button onclick="document.getElementById('photo-file-input').click()" class="btn-royal" style="padding: 10px 20px; font-size: 0.85rem;">
+          + ADD PHOTO
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ========================================================================
+       3. HERO SECTION & AI COMMAND ASSISTANT
+       ======================================================================== -->
+  <header id="hero-section" class="hero-section">
+    <div class="container">
+      <div class="hero-pill">
+        <span>🦁</span> ROYAL BLOODLINE • UNSTOPPABLE • 100% DESI
+      </div>
+
+      <h1 class="hero-main-title">
+        WELCOME TO THE EMPIRE OF<br>
+        <span class="text-gold-gradient">JULMI JAAT</span>
+      </h1>
+
+      <p class="hero-tagline">
+        रूतबा ऐसा कि दुनिया याद रखे! Where royalty meets fearless attitude. 
+        <span>Explore your exclusive photo vault, play desi banger beats, and experience unstoppable swag.</span>
+      </p>
+
+      <!-- Royal AI Command Bar -->
+      <div class="ai-voice-command-bar">
+        <div class="ai-avatar">🦁</div>
+        <input 
+          type="text" 
+          id="ai-command-input" 
+          class="ai-input" 
+          placeholder="Ask Julmi AI... (e.g. 'Show photos', 'Play beat', 'Rev Thar', 'Shayari')"
+        >
+        <button id="ai-mic-btn" class="ai-mic-btn" title="Speak to Julmi AI">
+          🎙️
+        </button>
+        <button id="ai-send-btn" class="ai-send-btn">
+          HUKUM
+        </button>
+      </div>
+
+      <!-- AI Response Speech Bubble (dynamic) -->
+      <div id="ai-response-box" class="ai-response-box" style="display: none;">
+        <span id="ai-response-text"></span>
+        <button id="ai-speak-again-btn" class="ai-speak-again" title="Listen Again">🔊</button>
+      </div>
+
+      <!-- Stat Badges -->
+      <div class="stats-banner">
+        <div class="stat-card">
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Royal Attitude</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Royal Swag</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-photos-count">5</div>
+          <div class="stat-label">Photos in Vault</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num">4x4</div>
+          <div class="stat-label">All Terrain Power</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========================================================================
+       4. PHOTO VAULT & CUSTOM GALLERY (WITH INSTANT DRAG & DROP UPLOAD)
+       ======================================================================== -->
+  <section id="gallery-section" class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge">📸 IMPERIAL GALLERY</span>
+        <h2 class="section-title">The Royal Photo Vault</h2>
+        <p class="section-desc">
+          Upload and cherish your pictures here. Your photos are automatically saved right in your browser with high-definition clarity!
+        </p>
+      </div>
+
+      <!-- Drag & Drop Uploader -->
+      <div id="photo-dropzone" class="upload-hub-card">
+        <div class="upload-icon">📸</div>
+        <h3 class="upload-title">Drop your photos here or click to browse</h3>
+        <p class="upload-subtitle">Supports JPG, PNG, WEBP, and high-resolution camera photos</p>
+        <div class="upload-btn-wrap">
+          <span class="btn-royal" style="padding: 12px 28px; font-size: 0.95rem;">
+            ⚡ CHOOSE PHOTOS FROM DEVICE
+          </span>
+        </div>
+        <input type="file" id="photo-file-input" class="hidden-file-input" multiple accept="image/*">
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="gallery-filters">
+        <button class="filter-btn active" data-filter="all">All Photos</button>
+        <button class="filter-btn" data-filter="user">Uploaded by You ⭐</button>
+        <button class="filter-btn" data-filter="rides">Royal Rides 🚜</button>
+        <button class="filter-btn" data-filter="swag">Swag & Crest 👑</button>
+        <button class="filter-btn" data-filter="haveli">Heritage Haveli 🏰</button>
+        <button class="filter-btn" data-filter="squad">Squad & Yaar 🦁</button>
+      </div>
+
+      <!-- Dynamic Gallery Grid -->
+      <div id="gallery-grid" class="gallery-grid">
+        <!-- Rendered dynamically by gallery.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       5. THE ROYAL GARAGE (THAR 4x4, BULLET 350 & SWAG RIDES)
+       ======================================================================== -->
+  <section id="garage-section" class="section" style="background: rgba(12, 12, 18, 0.6);">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge">🚜 ROYAL FLEET</span>
+        <h2 class="section-title">The Royal Garage</h2>
+        <p class="section-desc">
+          Click the rev buttons to hear the authentic sound of your machines!
+        </p>
+      </div>
+
+      <div class="garage-grid">
+        <!-- Ride 1: Thar 4x4 -->
+        <div class="ride-card">
+          <span class="ride-badge">4x4 BEAST</span>
+          <div class="ride-icon">🚜</div>
+          <h3 class="ride-name">Mahindra Thar 4x4</h3>
+          <p class="ride-specs">
+            All-Black Matte Edition, glowing amber LED projector headlights, heavy off-road crawl ratio, and custom alloys.
+          </p>
+          <button id="rev-thar-btn" class="ride-rev-btn">
+            ⚡ REV THAR 4x4 ENGINE
+          </button>
+        </div>
+
+        <!-- Ride 2: Bullet 350 -->
+        <div class="ride-card">
+          <span class="ride-badge">LEGENDARY THUMP</span>
+          <div class="ride-icon">🏍️</div>
+          <h3 class="ride-name">Royal Enfield Bullet 350</h3>
+          <p class="ride-specs">
+            Classic heavy flywheel cast iron engine, high-gloss jet black with chrome fuel tank and signature dug-dug exhaust.
+          </p>
+          <button id="rev-bullet-btn" class="ride-rev-btn">
+            ⚡ START BULLET 350
+          </button>
+        </div>
+
+        <!-- Ride 3: John Deere 5310 -->
+        <div class="ride-card">
+          <span class="ride-badge">ZAMEENDAR SWAG</span>
+          <div class="ride-icon">🌾</div>
+          <h3 class="ride-name">John Deere 5310 4WD</h3>
+          <p class="ride-specs">
+            55 HP turbocharged muscle with mega subwoofer music system, LED lightbars, and chrome wheel caps.
+          </p>
+          <button class="ride-rev-btn" onclick="if(window.royalAudio) window.royalAudio.playTharRev()">
+            ⚡ TRACTOR HORN & TURBO
+          </button>
+        </div>
+
+        <!-- Ride 4: Scorpio Classic -->
+        <div class="ride-card">
+          <span class="ride-badge">HIGHWAY ROAR</span>
+          <div class="ride-icon">🚙</div>
+          <h3 class="ride-name">Scorpio Classic S11</h3>
+          <p class="ride-specs">
+            Jet black mafia look, 2.2L mHawk diesel engine, high stance, and dark tinted command presence.
+          </p>
+          <button class="ride-rev-btn" onclick="if(window.royalAudio) window.royalAudio.playTharRev()">
+            ⚡ DIESEL GROWL
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       6. ATTITUDE & SHAYARI VAULT (STATUS MAKER)
+       ======================================================================== -->
+  <section id="shayari-section" class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge">📜 जुल्मी विचार</span>
+        <h2 class="section-title">Attitude Shayari & Status Vault</h2>
+        <p class="section-desc">
+          Generate royalty status lines, copy with 1 click, or download an Instagram/WhatsApp story card!
+        </p>
+      </div>
+
+      <div class="shayari-card">
+        <div class="shayari-quote-mark">“</div>
+        <span id="shayari-tag" class="section-badge" style="margin-bottom: 20px;">रूतबा & ठाठ</span>
+        
+        <h3 id="shayari-text" class="shayari-text">
+          रूतबा ऐसा बनाओ कि लोग सलाम करें, किसी के सामने झुकना जुल्मी जाट की फितरत नहीं!
+        </h3>
+
+        <div id="shayari-author" class="shayari-author">
+          — 👑 JULMI JAAT ROYALTY —
+        </div>
+
+        <div class="shayari-actions">
+          <button class="btn-royal" onclick="window.quotesManager.nextQuote()">
+            🔄 NEXT SHAYARI
+          </button>
+          <button class="btn-royal-outline" onclick="window.quotesManager.copyQuote()">
+            📋 COPY FOR WHATSAPP
+          </button>
+          <button class="btn-royal-outline" onclick="window.quotesManager.downloadStoryCard()">
+            📥 DOWNLOAD STORY CARD
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       7. BEAT PLAYER & AUDIO VISUALIZER (SONG: JAATAN KA CHHORA)
+       ======================================================================== -->
+  <section id="music-section" class="section" style="background: rgba(12, 12, 18, 0.6);">
+    <div class="container">
+      <div class="section-head">
+        <span class="section-badge">🎵 SWAG SOUNDSYSTEM</span>
+        <h2 class="section-title">Desi Bass & Royal Beat Player</h2>
+        <p class="section-desc">
+          Turn up the bass! Playing the exclusive anthem for Julmi Jaat with a live reactive audio visualizer.
+        </p>
+      </div>
+
+      <div class="beat-box-card">
+        <!-- Embedded HTML5 Audio with direct native stream (Guarantees loud & clear voice on all browsers) -->
+        <audio id="main-audio-player" src="assets/audio/jaatan_ka_chhora.mp3" preload="auto"></audio>
+
+        <!-- Track Header -->
+        <div class="player-track-info">
+          <img 
+            id="player-vinyl-disc" 
+            src="assets/images/julmi_jaat_logo.jpg" 
+            alt="Album Art" 
+            class="player-vinyl-disc"
+          >
+          <div class="player-track-details">
+            <h3 class="player-song-title">जाटां का छोरा (Jaatan Ka Chhora)</h3>
+            <div class="player-song-sub">
+              <span>⚡ Official Vocal Track</span>
+              <span id="player-status-badge" class="player-status-badge">READY TO ROAR</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audio Visualizer Canvas -->
+        <canvas id="beat-canvas" class="visualizer-canvas" width="660" height="110"></canvas>
+
+        <!-- Progress Bar & Time -->
+        <div class="player-progress-wrap">
+          <div class="progress-slider-container">
+            <div id="song-progress-fill" class="song-progress-fill"></div>
+            <input 
+              type="range" 
+              id="song-progress-bar" 
+              class="song-progress-bar" 
+              min="0" 
+              max="100" 
+              value="0" 
+              step="0.1"
+            >
+          </div>
+          <div class="player-time-row">
+            <span id="song-current-time">0:00</span>
+            <span id="song-total-time">3:41</span>
+          </div>
+        </div>
+
+        <!-- Controls Row -->
+        <div class="player-controls-row">
+          <button id="player-rewind-btn" class="control-secondary-btn" title="Rewind 10 seconds">
+            ⏪ 10s
+          </button>
+          
+          <button 
+            id="play-beat-btn" 
+            class="play-beat-btn" 
+            title="Play / Pause Song"
+          >
+            ▶
+          </button>
+
+          <button id="player-forward-btn" class="control-secondary-btn" title="Forward 10 seconds">
+            10s ⏩
+          </button>
+        </div>
+
+        <!-- Volume Row -->
+        <div class="player-volume-wrap">
+          <span>🔊 Volume:</span>
+          <input 
+            type="range" 
+            id="song-volume-slider" 
+            class="volume-slider" 
+            min="0" 
+            max="1" 
+            step="0.05" 
+            value="1"
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================================================================
+       8. FOOTER
+       ======================================================================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-socials">
+        <a href="https://instagram.com" target="_blank" class="social-pill">
+          📸 Instagram
+        </a>
+        <a href="https://whatsapp.com" target="_blank" class="social-pill">
+          💬 WhatsApp
+        </a>
+        <a href="https://youtube.com" target="_blank" class="social-pill">
+          ▶️ YouTube
+        </a>
+        <a href="https://snapchat.com" target="_blank" class="social-pill">
+          👻 Snapchat
+        </a>
+      </div>
+
+      <p class="footer-credits">
+        Designed & Engineered with Royal Swag for <span>JULMI JAAT</span> • All Rights Reserved &copy; 2026
+      </p>
+    </div>
+  </footer>
+
+  <!-- Lightbox Modal for Fullscreen Photos -->
+  <div id="lightbox-modal" class="lightbox-modal">
+    <button id="lightbox-close" class="lightbox-close">&times;</button>
+    <div class="lightbox-content">
+      <img id="lightbox-img" class="lightbox-img" src="" alt="Fullscreen View">
+      <div id="lightbox-caption" class="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/audio.js"></script>
+  <script src="js/quotes.js"></script>
+  <script src="js/gallery.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
